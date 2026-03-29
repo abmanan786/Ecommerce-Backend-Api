@@ -5,6 +5,7 @@ const homeRoutes = require("./routes/homeRoutes");
 const shopRoutes = require("./routes/shopRoutes");
 const singleProductRoutes = require("./routes/singleProductRoutes");
 const addCartRoutes = require("./routes/addCartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,7 @@ app.use("/api", homeRoutes);
 app.use("/api", shopRoutes);
 app.use("/api", singleProductRoutes);
 app.use("/api", addCartRoutes);
+app.use("/api", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 

@@ -65,3 +65,9 @@ exports.removeFromCart = (req, res) => {
   cart = cart.filter((item) => item.id !== pid);
   return res.json({ message: "Product removed from cart", cart });
 };
+
+// ✅ NEW: Clear cart
+exports.clearCart = (req, res) => {
+  cart = [];
+  return res.json({ message: "Cart cleared", cart });
+};

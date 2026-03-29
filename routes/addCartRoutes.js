@@ -6,6 +6,7 @@ const {
   addToCart,
   updateCartQuantity, // ✅ NEW
   removeFromCart,
+  clearCart,
 } = require("../controllers/addCartController");
 
 // Cart routes
@@ -16,5 +17,6 @@ router.post("/cart", addToCart);
 router.put("/cart/:id", updateCartQuantity);
 
 router.delete("/cart/:id", removeFromCart);
+router.delete("/cart", clearCart);
 
 module.exports = router;
