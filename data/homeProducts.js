@@ -1,9 +1,16 @@
+const BASE = "https://ecommerce-backend-api-production-9628.up.railway.app";
+
 const homeProducts = [
   {
     id: 1,
     name: "3 In 1 Numeral Watch",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product1.jpg",
+    image: `${BASE}/images/product1.jpg`,
+    images: [
+      `${BASE}/images/product1.jpg`,
+      `${BASE}/images/product10.jpg`,
+      `${BASE}/images/product11.jpg`,
+      `${BASE}/images/product12.jpg`,
+    ],
     price: "£15.00",
     isNew: true,
     description:
@@ -12,8 +19,13 @@ const homeProducts = [
   {
     id: 2,
     name: "Black & Red Numeral",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product2.jpg",
+    image: `${BASE}/images/product2.jpg`,
+    images: [
+      `${BASE}/images/product2.jpg`,
+      `${BASE}/images/product13.jpg`,
+      `${BASE}/images/product14.jpg`,
+      `${BASE}/images/product15.jpg`,
+    ],
     price: "£35.00",
     isNew: true,
     description:
@@ -22,8 +34,13 @@ const homeProducts = [
   {
     id: 3,
     name: "Black Dial Leather Strap",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product3.jpg",
+    image: `${BASE}/images/product3.jpg`,
+    images: [
+      `${BASE}/images/product3.jpg`,
+      `${BASE}/images/product16.jpg`,
+      `${BASE}/images/product17.jpg`,
+      `${BASE}/images/product18.jpg`,
+    ],
     price: "£35.00",
     isNew: true,
     description:
@@ -32,8 +49,13 @@ const homeProducts = [
   {
     id: 4,
     name: "Classic Steel Chronograph",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product4.jpg",
+    image: `${BASE}/images/product4.jpg`,
+    images: [
+      `${BASE}/images/product4.jpg`,
+      `${BASE}/images/product10.jpg`,
+      `${BASE}/images/product12.jpg`,
+      `${BASE}/images/product14.jpg`,
+    ],
     price: "£45.00",
     isNew: false,
     description:
@@ -42,8 +64,13 @@ const homeProducts = [
   {
     id: 5,
     name: "Vintage Pilot Watch",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product5.jpg",
+    image: `${BASE}/images/product5.jpg`,
+    images: [
+      `${BASE}/images/product5.jpg`,
+      `${BASE}/images/product11.jpg`,
+      `${BASE}/images/product13.jpg`,
+      `${BASE}/images/product16.jpg`,
+    ],
     price: "£55.00",
     isNew: true,
     description:
@@ -52,8 +79,13 @@ const homeProducts = [
   {
     id: 6,
     name: "Minimalist Ultra-Thin",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product6.jpg",
+    image: `${BASE}/images/product6.jpg`,
+    images: [
+      `${BASE}/images/product6.jpg`,
+      `${BASE}/images/product15.jpg`,
+      `${BASE}/images/product17.jpg`,
+      `${BASE}/images/product18.jpg`,
+    ],
     price: "£25.00",
     isNew: false,
     description:
@@ -62,8 +94,13 @@ const homeProducts = [
   {
     id: 7,
     name: "Luxury Diver's Watch",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product7.jpg",
+    image: `${BASE}/images/product7.jpg`,
+    images: [
+      `${BASE}/images/product7.jpg`,
+      `${BASE}/images/product12.jpg`,
+      `${BASE}/images/product14.jpg`,
+      `${BASE}/images/product16.jpg`,
+    ],
     price: "£120.00",
     isNew: true,
     description:
@@ -72,8 +109,13 @@ const homeProducts = [
   {
     id: 8,
     name: "Smartwatch with Health Tracker",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product8.jpg",
+    image: `${BASE}/images/product8.jpg`,
+    images: [
+      `${BASE}/images/product8.jpg`,
+      `${BASE}/images/product10.jpg`,
+      `${BASE}/images/product15.jpg`,
+      `${BASE}/images/product18.jpg`,
+    ],
     price: "£99.00",
     isNew: true,
     description:
@@ -82,8 +124,13 @@ const homeProducts = [
   {
     id: 9,
     name: "Elegant Ceramic Chronograph",
-    image:
-      "https://ecommerce-backend-api-production-9628.up.railway.app/images/product9.jpg",
+    image: `${BASE}/images/product9.jpg`,
+    images: [
+      `${BASE}/images/product9.jpg`,
+      `${BASE}/images/product11.jpg`,
+      `${BASE}/images/product13.jpg`,
+      `${BASE}/images/product17.jpg`,
+    ],
     price: "£150.00",
     isNew: false,
     description:
