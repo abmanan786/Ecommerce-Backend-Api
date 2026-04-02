@@ -495,6 +495,8 @@ const MobileMenu = ({ isOpen, onClose, isAuthenticated, currentUser }) => {
                 </span>
               </NavLink>
             </nav>
+
+           
           </motion.div>
         </>
       )}
