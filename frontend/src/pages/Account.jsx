@@ -219,7 +219,7 @@ const Account = () => {
       />
 
       {/* Hero */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-black via-[#111111] to-[#050505] py-14 sm:py-16 md:py-20">
+      <div className="relative overflow-hidden bg-linear-to-br from-black via-[#111111] to-[#050505] py-14 sm:py-16 md:py-20">
         <div className="absolute top-0 left-10 w-72 h-72 bg-[#b99c79]/20 blur-[120px] rounded-full" />
         <div className="absolute bottom-0 right-10 w-72 h-72 bg-white/10 blur-[120px] rounded-full" />
 
@@ -234,7 +234,7 @@ const Account = () => {
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
                 Welcome back,
-                <span className="block mt-2 bg-gradient-to-r from-[#d4b896] to-[#b99c79] bg-clip-text text-transparent">
+                <span className="block mt-2 bg-linear-to-r from-[#d4b896] to-[#b99c79] bg-clip-text text-transparent">
                   {currentUser?.fullName || "User"}
                 </span>
               </h1>
@@ -259,7 +259,7 @@ const Account = () => {
             {/* Profile glass card */}
             <div className="hidden md:flex items-center gap-4 rounded-3xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl">
               <div className="relative">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#b99c79] to-[#8b7355] flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div className="w-16 h-16 rounded-full bg-linear-to-br from-[#b99c79] to-[#8b7355] flex items-center justify-center text-white font-bold text-lg shadow-lg">
                   {initials}
                 </div>
                 <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white text-gray-700 flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors">
@@ -317,10 +317,10 @@ const Account = () => {
           <div className="space-y-6">
             {/* Profile card */}
             <SectionCard className="overflow-hidden">
-              <div className="h-24 bg-gradient-to-r from-black via-[#181818] to-black" />
+              <div className="h-24 bg-linear-to-r from-black via-[#181818] to-black" />
               <div className="px-6 pb-6 -mt-10">
                 <div className="relative w-fit mx-auto">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#b99c79] to-[#8b7355] flex items-center justify-center text-white font-bold text-xl border-4 border-white shadow-lg">
+                  <div className="w-20 h-20 rounded-full bg-linear-to-br from-[#b99c79] to-[#8b7355] flex items-center justify-center text-white font-bold text-xl border-4 border-white shadow-lg">
                     {initials}
                   </div>
                   <button className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#b99c79] text-white flex items-center justify-center shadow-md hover:bg-[#a08968] transition-colors">
