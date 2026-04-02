@@ -6,7 +6,7 @@ SwissEagle is a modern full-stack premium e-commerce web application built for l
 
 ## 🌐 Live Links
 
-- **Frontend:** https://ecommerce-backend-api-five.vercel.app/
+- **Frontend:** https://swisseagle.vercel.app/
 - **Backend API:** https://ecommerce-backend-api-production-9628.up.railway.app
 
 ---
