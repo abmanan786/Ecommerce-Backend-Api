@@ -496,7 +496,18 @@ const MobileMenu = ({ isOpen, onClose, isAuthenticated, currentUser }) => {
               </NavLink>
             </nav>
 
-           
+            {/* <div className="p-4 border-t bg-gray-50">
+              <button
+                onClick={() => {
+                  navigate("/shop");
+                  onClose();
+                }}
+                className="w-full py-3 bg-black text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-[#b99c79] transition-colors"
+              >
+                Shop Collection
+                <ArrowRight size={16} />
+              </button>
+            </div> */}
           </motion.div>
         </>
       )}
