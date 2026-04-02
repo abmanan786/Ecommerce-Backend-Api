@@ -6,6 +6,7 @@ import App from "./App";
 import "./index.css";
 
 import { CartProvider } from "./context/AddCartContext";
+import { AuthProvider } from "./context/AuthContext";
 import ScrollToTop from "./components/ScrollToTop";
 import ErrorBoundary from "./components/ErrorBoundary";
 
@@ -16,24 +17,26 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <CartProvider>
-        {/* ✅ Route change scroll */}
-        <ScrollToTop />
+        <AuthProvider>
+          {/* ✅ Route change scroll */}
+          <ScrollToTop />
 
-        {/* ✅ ErrorBoundary must WRAP the App */}
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
+          {/* ✅ ErrorBoundary must WRAP the App */}
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
 
-        {/* ✅ Global toasts */}
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          newestOnTop
-          closeOnClick
-          pauseOnHover
-          draggable
-          theme="light"
-        />
+          {/* ✅ Global toasts */}
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            newestOnTop
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="light"
+          />
+        </AuthProvider>
       </CartProvider>
     </BrowserRouter>
   </React.StrictMode>,

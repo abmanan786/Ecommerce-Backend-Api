@@ -1,3 +1,8 @@
+// ═══════════════════════════════════════════════════════════
+// 📁 FILE: src/components/layout/Navbar.jsx
+// 📌 PURPOSE: Premium Navbar with Auth Dropdown + Cart + Search + Mobile Menu
+// ═══════════════════════════════════════════════════════════
+
 import { useState, useMemo, useContext, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,11 +16,15 @@ import {
   Package,
   Trash2,
   ArrowRight,
+  LogOut,
+  LayoutDashboard,
+  ChevronDown,
 } from "lucide-react";
 
 import logo from "../../assets/logo.webp";
 import { megaMenuData, navItems } from "../../data/menuData";
 import { CartContext } from "../../context/AddCartContext";
+import { useAuth } from "../../context/AuthContext";
 import { fetchProductById } from "../../api/productApi";
 
 // ═══════════════════════════════════════════════════════════
@@ -33,7 +42,7 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 const FALLBACK_IMG = "https://placehold.co/100x100/f5f5f5/999?text=Product";
 
 // ═══════════════════════════════════════════════════════════
-// CUSTOM HOOK - Check if Mobile
+// CUSTOM HOOK - CHECK IF MOBILE
 // ═══════════════════════════════════════════════════════════
 
 const useIsMobile = (breakpoint = 768) => {
@@ -123,8 +132,7 @@ const SearchBar = ({ isOpen, onClose }) => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search for watches, brands..."
-                  className="w-full pl-12 pr-12 py-3 sm:py-4 text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl
-                           focus:outline-none focus:border-[#b99c79] transition-colors"
+                  className="w-full pl-12 pr-12 py-3 sm:py-4 text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#b99c79] transition-colors"
                 />
                 <button
                   type="button"
@@ -161,7 +169,7 @@ const SearchBar = ({ isOpen, onClose }) => {
 };
 
 // ═══════════════════════════════════════════════════════════
-// CART PREVIEW DROPDOWN (Desktop/Tablet Only)
+// CART PREVIEW DROPDOWN
 // ═══════════════════════════════════════════════════════════
 
 const CartPreview = ({ isOpen, cart, productMap, total, onClose }) => {
@@ -217,6 +225,7 @@ const CartPreview = ({ isOpen, cart, productMap, total, onClose }) => {
                             }
                           />
                         </div>
+
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900 truncate">
                             {name}
@@ -228,6 +237,7 @@ const CartPreview = ({ isOpen, cart, productMap, total, onClose }) => {
                             {price}
                           </p>
                         </div>
+
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="p-1.5 hover:bg-red-50 rounded-lg transition-colors"
@@ -286,10 +296,95 @@ const CartPreview = ({ isOpen, cart, productMap, total, onClose }) => {
 };
 
 // ═══════════════════════════════════════════════════════════
+// ACCOUNT DROPDOWN
+// ═══════════════════════════════════════════════════════════
+
+const AccountDropdown = ({
+  isOpen,
+  onClose,
+  isAuthenticated,
+  currentUser,
+  onLogout,
+}) => {
+  const navigate = useNavigate();
+
+  if (!isAuthenticated) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={onClose} />
+
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.96 }}
+            transition={{ duration: 0.18 }}
+            className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border z-50 overflow-hidden"
+          >
+            <div className="p-4 bg-gradient-to-br from-black to-[#1a1a1a] text-white">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center">
+                  <User size={20} className="text-[#b99c79]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold truncate">
+                    {currentUser?.fullName || "My Account"}
+                  </p>
+                  <p className="text-xs text-white/60 truncate">
+                    {currentUser?.email || ""}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-2">
+              <button
+                onClick={() => {
+                  navigate("/account");
+                  onClose();
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                <LayoutDashboard size={18} className="text-[#b99c79]" />
+                <span>My Account</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  navigate("/account");
+                  onClose();
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                <Package size={18} className="text-[#b99c79]" />
+                <span>Orders & Details</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  onLogout();
+                  onClose();
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <LogOut size={18} />
+                <span>Logout</span>
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+// ═══════════════════════════════════════════════════════════
 // MOBILE MENU
 // ═══════════════════════════════════════════════════════════
 
-const MobileMenu = ({ isOpen, onClose }) => {
+const MobileMenu = ({ isOpen, onClose, isAuthenticated, currentUser }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -298,6 +393,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -387,12 +483,16 @@ const MobileMenu = ({ isOpen, onClose }) => {
               <div className="my-6 border-t" />
 
               <NavLink
-                to="/account"
+                to={isAuthenticated ? "/account" : "/login"}
                 onClick={onClose}
                 className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 <User size={20} />
-                <span className="font-medium">My Account</span>
+                <span className="font-medium">
+                  {isAuthenticated
+                    ? currentUser?.fullName || "My Account"
+                    : "Login / Register"}
+                </span>
               </NavLink>
             </nav>
 
@@ -489,12 +589,14 @@ const MegaMenu = ({ data, isOpen }) => {
 // ═══════════════════════════════════════════════════════════
 
 const Navbar = () => {
+  const { isAuthenticated, currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const isMobile = useIsMobile(768); // < 768px = mobile
+  const isMobile = useIsMobile(768);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -546,6 +648,7 @@ const Navbar = () => {
     };
 
     loadCartData();
+
     return () => {
       mounted = false;
     };
@@ -555,19 +658,23 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Handle Cart Click - Different behavior for mobile vs desktop
   const handleCartClick = () => {
     if (isMobile) {
-      // Mobile: Navigate directly to cart page
       navigate("/cart");
     } else {
-      // Desktop/Tablet: Toggle dropdown
       setIsCartOpen(!isCartOpen);
+      setIsAccountOpen(false);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -581,14 +688,14 @@ const Navbar = () => {
         )}
         onMouseLeave={() => setActiveMenu(null)}
       >
-        {/* ═══════════════ TOP BAR ═══════════════ */}
+        {/* TOP BAR */}
         <div className="border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 sm:h-20">
               <Logo />
 
               <div className="flex items-center gap-2 sm:gap-4">
-                {/* Search - Hidden on mobile, shown on tablet+ */}
+                {/* Search */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -599,19 +706,53 @@ const Navbar = () => {
                   <Search size={20} className="text-gray-600" />
                 </motion.button>
 
-                {/* Account - Hidden on mobile */}
-                <Link
-                  to="/account"
-                  className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
-                  aria-label="Account"
-                >
-                  <User size={20} className="text-gray-600" />
-                </Link>
+                {/* Account */}
+                <div className="relative hidden sm:block">
+                  {isAuthenticated ? (
+                    <>
+                      <button
+                        onClick={() => {
+                          setIsAccountOpen((prev) => !prev);
+                          setIsCartOpen(false);
+                        }}
+                        className="flex items-center gap-2 px-3 h-10 rounded-xl hover:bg-gray-100 transition-colors"
+                        aria-label="Account"
+                        title={currentUser?.fullName || "My Account"}
+                      >
+                        <User size={20} className="text-gray-600" />
+                        <ChevronDown
+                          size={14}
+                          className={cn(
+                            "text-gray-500 transition-transform duration-200",
+                            isAccountOpen && "rotate-180",
+                          )}
+                        />
+                      </button>
 
-                {/* Divider - Hidden on mobile */}
+                      <AccountDropdown
+                        isOpen={isAccountOpen}
+                        onClose={() => setIsAccountOpen(false)}
+                        isAuthenticated={isAuthenticated}
+                        currentUser={currentUser}
+                        onLogout={handleLogout}
+                      />
+                    </>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="flex w-10 h-10 items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
+                      aria-label="Login"
+                      title="Login"
+                    >
+                      <User size={20} className="text-gray-600" />
+                    </Link>
+                  )}
+                </div>
+
+                {/* Divider */}
                 <div className="hidden sm:block w-px h-6 bg-gray-200" />
 
-                {/* Cart Button */}
+                {/* Cart */}
                 <div className="relative">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -631,13 +772,12 @@ const Navbar = () => {
                         </motion.span>
                       )}
                     </div>
-                    {/* Price - Hidden on mobile */}
+
                     <span className="hidden lg:block text-sm font-semibold text-gray-900">
                       £{cartTotal.toFixed(2)}
                     </span>
                   </motion.button>
 
-                  {/* Cart Preview - Only show on tablet/desktop */}
                   {!isMobile && (
                     <CartPreview
                       isOpen={isCartOpen}
@@ -664,7 +804,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* ═══════════════ DESKTOP NAV BAR ═══════════════ */}
+        {/* DESKTOP NAV */}
         <nav className="hidden lg:block bg-black" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-8">
             <div className="flex items-center justify-center">
@@ -713,6 +853,8 @@ const Navbar = () => {
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        isAuthenticated={isAuthenticated}
+        currentUser={currentUser}
       />
     </>
   );
