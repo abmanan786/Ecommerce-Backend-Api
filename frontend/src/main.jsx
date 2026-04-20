@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import Lenis from "lenis";
 
 import App from "./App";
 import "./index.css";
@@ -13,6 +14,46 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+/* ─── Lenis Smooth Scroll Wrapper (inline) ─── */
+function SmoothScroll({ children }) {
+  const lenisRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+      infinite: false,
+    });
+
+    lenisRef.current = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
+  // Route change → scroll to top
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+  }, [location.pathname]);
+
+  return <>{children}</>;
+}
+
+/* ─── Root Render ─── */
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -21,10 +62,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* ✅ Route change scroll */}
           <ScrollToTop />
 
-          {/* ✅ ErrorBoundary must WRAP the App */}
-          <ErrorBoundary>
-            <App />
-          </ErrorBoundary>
+          {/* ✅ Lenis Smooth Scrolling */}
+          <SmoothScroll>
+            {/* ✅ ErrorBoundary wraps App */}
+            <ErrorBoundary>
+              <App />
+            </ErrorBoundary>
+          </SmoothScroll>
 
           {/* ✅ Global toasts */}
           <ToastContainer
