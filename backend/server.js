@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 
@@ -12,7 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 // Static images
-app.use("/images", express.static("public/images"));
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "public", "images")),
+);
 
 // Routes
 
