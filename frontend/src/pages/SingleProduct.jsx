@@ -21,6 +21,7 @@ const FALLBACK_IMG =
 
 // ✅ Backend origin (images + shop endpoint)
 const BACKEND_ORIGIN =
+  import.meta.env.VITE_BACKEND_URL ||
   "https://ecommerce-backend-api-production-9628.up.railway.app";
 
 const cn = (...classes) => classes.filter(Boolean).join(" ");

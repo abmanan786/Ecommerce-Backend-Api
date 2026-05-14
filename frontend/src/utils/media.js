@@ -1,4 +1,5 @@
 export const BACKEND_ORIGIN =
+  import.meta.env.VITE_BACKEND_URL ||
   "https://ecommerce-backend-api-production-9628.up.railway.app";
 
 export const FALLBACK_IMG =
