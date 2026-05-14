@@ -1,3 +1,3 @@
-const BASE_URL = "https://ecommerce-backend-api-production-9628.up.railway.app/api";
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 export default BASE_URL;

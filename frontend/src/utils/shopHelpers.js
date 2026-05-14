@@ -7,8 +7,7 @@
 // API & IMAGE CONSTANTS
 // ─────────────────────────────────────────────────────────────
 
-export const BACKEND_URL =
-  "https://ecommerce-backend-api-production-9628.up.railway.app";
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export const FALLBACK_IMG =
   "https://placehold.co/600x600/f5f5f5/999999?text=No+Image";
 export const ITEMS_PER_PAGE = 12;
